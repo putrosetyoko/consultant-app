@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "963373353654",
+    "project_id": "consultantapp-firebase",
+    "storage_bucket": "consultantapp-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963373353654:android:5907e6f50620fa03ff7417",
+        "android_client_info": {
+          "package_name": "com.example.consultant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963373353654-tav5fkdnu6b90nt9nqe565pm0hrolq7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_THHIZ8lPrv0UQqSTCyNStpQyP2G05R0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963373353654-tav5fkdnu6b90nt9nqe565pm0hrolq7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
