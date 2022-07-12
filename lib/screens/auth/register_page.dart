@@ -1,37 +1,26 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'dart:ffi';
-
 import 'package:consultant_app/main.dart';
-import 'package:consultant_app/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:consultant_app/home_page.dart';
+import 'package:consultant_app/screens/home_page.dart';
 // import 'package:consultant_app/register_page.dart';
 
 // List<Map<String, dynamic>> dataAkun = DummyData.data;
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   String errorMessage = '';
   bool isPasswordVisible = false;
   // String nama = '';
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-
-  @override
-  void deactive() {
-    _email.dispose();
-    _password.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 children: const [
                   Text(
-                    "masukkan Email dan Password untuk mengakses",
+                    "Registrasi akun baru untuk masuk ke sistem",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -161,52 +150,17 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Text(errorMessage),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                      color: Colors.teal,
-                    ),
-                  )
-                ],
-              ),
               const SizedBox(
-                height: 20,
+                height: 1,
               ),
               Column(
                 children: [
-                  ElevatedButton(
-                    child: const Text(
-                      "Log in",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Poppins",
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 139 + .0, vertical: 20.0),
-                      primary: const Color(0xFF008080),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    onPressed: login,
-                  ),
                   const SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
                     child: const Text(
-                      "Sign Up",
+                      " Create Account",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -216,15 +170,31 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 130 + .0, vertical: 20.0),
-                      primary: Colors.white10,
+                          horizontal: 90 + .0, vertical: 20.0),
+                      primary: Colors.teal,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
-                    onPressed: () => navigatorKey.currentState!.push(
-                        MaterialPageRoute(
-                            builder: (context) => RegisterPage())),
+                    onPressed: register,
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () => navigatorKey.currentState!.pop(),
+                        child: Text(
+                          "Back to Login Page",
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Poppins",
+                            color: Colors.teal,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
@@ -233,13 +203,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future login() async {
-    showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (context) => Center(child: CircularProgressIndicator()));
+  Future register() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email.text.trim(),
         password: _password.text.trim(),
       );
@@ -248,7 +214,6 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         errorMessage = e.message!;
       });
-      navigatorKey.currentState!.pop();
       print(e);
     }
   }

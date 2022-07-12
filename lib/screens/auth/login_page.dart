@@ -1,21 +1,22 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:consultant_app/main.dart';
+import 'package:consultant_app/screens/auth/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:consultant_app/home_page.dart';
+import 'package:consultant_app/screens/home_page.dart';
 // import 'package:consultant_app/register_page.dart';
 
 // List<Map<String, dynamic>> dataAkun = DummyData.data;
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   String errorMessage = '';
   bool isPasswordVisible = false;
   // String nama = '';
@@ -23,8 +24,15 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _password = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  void deactive() {
+    _email.dispose();
+    _password.dispose();
 
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: SingleChildScrollView(
@@ -42,7 +50,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.teal,
                     ),
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   Icon(
                     Icons.waving_hand_rounded,
                     color: Color.fromRGBO(255, 221, 103, 1),
@@ -66,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Row(
                 children: const [
                   Text(
-                    "Registrasi akun baru untuk masuk ke sistem",
+                    "masukkan Email dan Password untuk mengakses",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -89,7 +99,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   )
                 ],
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 children: [
                   Image.asset(
@@ -102,7 +114,8 @@ class _RegisterPageState extends State<RegisterPage> {
               // const SizedBox(height:500,),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 decoration: BoxDecoration(
                   color: const Color.fromRGBO(247, 247, 247, 1),
                   borderRadius: BorderRadius.circular(10),
@@ -110,9 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: TextField(
                   controller: _email,
                   decoration: const InputDecoration(
-                    icon: Icon(
-                        Icons.person_outline_rounded
-                    ),
+                    icon: Icon(Icons.person_outline_rounded),
                     hintText: "Email",
                     border: InputBorder.none,
                   ),
@@ -120,7 +131,8 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 decoration: BoxDecoration(
                   color: const Color.fromRGBO(247, 247, 247, 1),
                   borderRadius: BorderRadius.circular(10),
@@ -128,9 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: TextField(
                   controller: _password,
                   decoration: InputDecoration(
-                    icon: Icon(
-                        Icons.lock_outline_rounded
-                    ),
+                    icon: Icon(Icons.lock_outline_rounded),
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
@@ -149,13 +159,29 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Text(errorMessage),
-              const SizedBox(height: 1,),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: const [
+                  Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Poppins",
+                      color: Colors.teal,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Column(
                 children: [
-                  const SizedBox(height: 20,),
                   ElevatedButton(
                     child: const Text(
-                      " Create Account",
+                      "Log in",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -165,32 +191,38 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          horizontal:90+
-                              .0, vertical: 20.0),
-                      primary: Colors.teal,
+                          horizontal: 139 + .0, vertical: 20.0),
+                      primary: const Color(0xFF008080),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
-                    onPressed: register,
+                    onPressed: login,
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start ,
-                    children: [
-                      GestureDetector(
-                        onTap: () => navigatorKey.currentState!.pop(),
-                        child: Text(
-                          "Back to Login Page",
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Poppins",
-                            color: Colors.teal,
-                          ),
-                        ),
-                      )
-                    ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    child: const Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Poppins",
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 130 + .0, vertical: 20.0),
+                      primary: Colors.white10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    onPressed: () => navigatorKey.currentState!.push(
+                        MaterialPageRoute(
+                            builder: (context) => RegisterPage())),
                   ),
                 ],
               ),
@@ -198,17 +230,23 @@ class _RegisterPageState extends State<RegisterPage> {
           )),
     );
   }
-  Future register() async {
+
+  Future login() async {
+    showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (context) => Center(child: CircularProgressIndicator()));
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _email.text.trim(),
         password: _password.text.trim(),
       );
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    } on FirebaseAuthException catch (e){
+    } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message!;
       });
+      navigatorKey.currentState!.pop();
       print(e);
     }
   }

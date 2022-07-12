@@ -1,10 +1,10 @@
 import 'package:consultant_app/add_doctors.dart';
 import 'package:consultant_app/delete_doctors.dart';
-import 'package:consultant_app/home_page.dart';
+import 'package:consultant_app/screens/home_page.dart';
 import 'package:consultant_app/pageTwo.dart';
 import 'package:consultant_app/update_doctors.dart';
 import 'package:flutter/material.dart';
-import 'package:consultant_app/login_page.dart';
+import 'package:consultant_app/screens/auth/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:consultant_app/dummy_doctor.dart';
 import 'package:consultant_app/main.dart';
