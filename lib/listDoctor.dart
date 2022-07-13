@@ -1,6 +1,6 @@
 import 'package:consultant_app/pageTwo.dart';
 import 'package:flutter/material.dart';
-import 'package:consultant_app/login_page.dart';
+import 'package:consultant_app/screens/auth/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:consultant_app/dummy_doctor.dart';
 
@@ -26,12 +26,9 @@ class _ListDoctorState extends State<ListDoctor> {
                 })),
         body: SingleChildScrollView(
           child: Column(
-            children: [
-            artistList()
-            ],
+            children: [artistList()],
           ),
-        )
-    );
+        ));
   }
 
   Widget artistList() {
@@ -40,9 +37,7 @@ class _ListDoctorState extends State<ListDoctor> {
       height: 215,
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
-          return buildArtistList(
-           data[index]
-          );
+          return buildArtistList(data[index]);
         },
         itemCount: data.length,
         scrollDirection: Axis.vertical,
@@ -54,7 +49,9 @@ class _ListDoctorState extends State<ListDoctor> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
         Container(
           width: 150,
           margin: const EdgeInsets.only(bottom: 8, left: 20),
@@ -72,8 +69,4 @@ class _ListDoctorState extends State<ListDoctor> {
       ],
     );
   }
-
-
-
-
 }

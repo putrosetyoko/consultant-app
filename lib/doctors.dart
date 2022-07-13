@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_final_fields
 import 'package:consultant_app/add_doctors.dart';
 import 'package:consultant_app/dummy_doctor.dart';
-import 'package:consultant_app/home_page.dart';
+import 'package:consultant_app/screens/home_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
