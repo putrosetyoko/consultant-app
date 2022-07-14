@@ -2,9 +2,7 @@
 import 'package:consultant_app/main.dart';
 import 'package:consultant_app/screens/auth/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:consultant_app/screens/home_page.dart';
 // import 'package:consultant_app/register_page.dart';
 
 // List<Map<String, dynamic>> dataAkun = DummyData.data;
@@ -24,210 +22,194 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _password = TextEditingController();
 
   @override
-  void deactive() {
-    _email.dispose();
-    _password.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-      body: SingleChildScrollView(
-          padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
-          child: Column(
-            children: [
-              Row(
-                children: const [
-                  Text(
-                    "Selamat Datang",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: "Poppins",
-                      color: Colors.teal,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.waving_hand_rounded,
-                    color: Color.fromRGBO(255, 221, 103, 1),
-                    size: 25.0,
-                  ),
-                ],
+      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+      body: body(),
+    );
+  }
+
+  Widget body() {
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(30, 60, 30, 30),
+      child: Column(
+        children: [
+          header(),
+          loginImage(),
+          loginForm(),
+        ],
+      ),
+    );
+  }
+
+  Widget header() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              "Selamat Datang",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w800,
+                fontFamily: "Poppins",
+                color: Colors.teal,
               ),
-              Row(
-                children: const [
-                  Text(
-                    "Senang bertemu dengan Anda kembali. Silakan",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                      color: Color.fromRGBO(170, 170, 170, 1),
-                    ),
-                  ),
-                ],
+            ),
+            SizedBox(width: 10),
+            Icon(
+              Icons.waving_hand_rounded,
+              color: Color.fromRGBO(255, 221, 103, 1),
+              size: 25.0,
+            ),
+          ],
+        ),
+        Text(
+          'Senang bertemu dengan anda kembali. Silakan login untuk mengakses aplikasi.',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            fontFamily: "Poppins",
+            color: Color.fromRGBO(170, 170, 170, 1),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget loginImage() {
+    return SizedBox(
+      height: 250,
+      // color: Colors.black,
+      child: Image.asset(
+        'assets/image/login.jpg',
+      ),
+    );
+  }
+
+  Widget loginForm() {
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(247, 247, 247, 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextField(
+            controller: _email,
+            decoration: const InputDecoration(
+              icon: Icon(Icons.person_outline_rounded),
+              hintText: "Email",
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(247, 247, 247, 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextField(
+            controller: _password,
+            decoration: InputDecoration(
+              icon: Icon(Icons.lock_outline_rounded),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    isPasswordVisible = !isPasswordVisible;
+                  });
+                },
+                icon: isPasswordVisible
+                    ? Icon(Icons.visibility)
+                    : Icon(Icons.visibility_off),
+                color: Color.fromRGBO(170, 170, 170, 1),
               ),
-              Row(
-                children: const [
-                  Text(
-                    "masukkan Email dan Password untuk mengakses",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                      color: Color.fromRGBO(170, 170, 170, 1),
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: const [
-                  Text(
-                    "aplikasi.",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                      color: Color.fromRGBO(170, 170, 170, 1),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/image/login.jpg',
-                    height: 250,
-                    width: 330,
-                  ),
-                ],
-              ),
-              // const SizedBox(height:500,),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(247, 247, 247, 1),
-                  borderRadius: BorderRadius.circular(10),
+              hintText: "Password",
+              border: InputBorder.none,
+            ),
+            obscureText: !isPasswordVisible,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              errorMessage,
+              style: TextStyle(fontSize: 12),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          // height: 40,
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              Text(
+                "Forgot Password?",
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Poppins",
+                  color: Colors.teal,
                 ),
-                child: TextField(
-                  controller: _email,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person_outline_rounded),
-                    hintText: "Email",
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(247, 247, 247, 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  controller: _password,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.lock_outline_rounded),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isPasswordVisible = !isPasswordVisible;
-                        });
-                      },
-                      icon: isPasswordVisible
-                          ? Icon(Icons.visibility)
-                          : Icon(Icons.visibility_off),
-                      color: Color.fromRGBO(170, 170, 170, 1),
-                    ),
-                    hintText: "Password",
-                    border: InputBorder.none,
-                  ),
-                  obscureText: !isPasswordVisible,
-                ),
-              ),
-              Text(errorMessage),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                      color: Colors.teal,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
-                children: [
-                  ElevatedButton(
-                    child: const Text(
-                      "Log in",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Poppins",
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 139 + .0, vertical: 20.0),
-                      primary: const Color(0xFF008080),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    onPressed: login,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    child: const Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Poppins",
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 130 + .0, vertical: 20.0),
-                      primary: Colors.white10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    onPressed: () => navigatorKey.currentState!.push(
-                        MaterialPageRoute(
-                            builder: (context) => RegisterPage())),
-                  ),
-                ],
-              ),
+              )
             ],
-          )),
+          ),
+        ),
+        Column(
+          children: [
+            ElevatedButton(
+              child: const Text(
+                "Log in",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Poppins",
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 139, vertical: 15),
+                primary: const Color(0xFF008080),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              onPressed: login,
+            ),
+            const SizedBox(height: 15),
+            ElevatedButton(
+              child: const Text(
+                "Sign Up",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Poppins",
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 130, vertical: 15),
+                primary: Color.fromARGB(100, 0, 0, 0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              onPressed: () => navigatorKey.currentState!.push(
+                  MaterialPageRoute(builder: (context) => RegisterPage())),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
