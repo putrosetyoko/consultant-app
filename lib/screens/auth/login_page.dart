@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget body() {
     return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(30, 60, 30, 30),
+      padding: EdgeInsets.fromLTRB(30, 50, 30, 10),
       child: Column(
         children: [
           header(),
