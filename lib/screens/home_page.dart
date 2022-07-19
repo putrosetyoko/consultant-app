@@ -1,15 +1,11 @@
-//import 'package:flutter/cupertino.dart';
-//import 'package:consultant_app/main.dart';
-//import 'package:flutter/cupertino.dart';
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:consultant_app/crud_doctors.dart';
 import 'package:consultant_app/listDoctor.dart';
-import 'package:consultant_app/pageTwo.dart';
+import 'package:consultant_app/screens/messaging/message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:consultant_app/screens/auth/login_page.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:consultant_app/doctors.dart';
 import 'package:provider/provider.dart';
@@ -60,7 +56,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(244, 247, 252, 1),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(top: 40, left: 30, right: 30),
+        padding: EdgeInsets.only(top: 40, left: 30, right: 30),
         child: Column(
           children: [
             Row(
@@ -518,10 +514,14 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ]),
-            child: const Icon(
-              Icons.mark_chat_unread_rounded,
-              color: Color.fromRGBO(216, 217, 218, 1),
-              size: 35.0,
+            child: GestureDetector(
+              onTap: () => navigatorKey.currentState!
+                  .push(MaterialPageRoute(builder: (context) => Messaging())),
+              child: Icon(
+                Icons.mark_chat_unread_rounded,
+                color: Color.fromRGBO(216, 217, 218, 1),
+                size: 35.0,
+              ),
             ),
           ),
           Container(
