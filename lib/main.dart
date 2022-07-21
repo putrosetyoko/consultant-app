@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       scrollBehavior: NoScrollGlow(),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'CircularStd'),
+      theme: ThemeData(fontFamily: 'Poppins'),
       home: MainPage(),
     );
   }
