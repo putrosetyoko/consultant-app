@@ -2,12 +2,16 @@
 import 'package:consultant_app/crud_doctors.dart';
 import 'package:consultant_app/listDoctor.dart';
 import 'package:consultant_app/screens/messaging/message.dart';
+import 'package:consultant_app/doctors.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:consultant_app/doctors.dart';
+
 import 'package:provider/provider.dart';
 
 import '../main.dart';
@@ -66,11 +70,11 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         header(),
-        SizedBox(height: 16),
-        card(),
-        SizedBox(height: 16),
+        SizedBox(height: 32),
+        stack(),
+        SizedBox(height: 24),
         services(),
-        SizedBox(height: 16),
+        SizedBox(height: 24),
         doctorList(),
       ],
     );
@@ -216,7 +220,7 @@ class _HomePageState extends State<HomePage> {
           //   ),
           // )),
         ),
-        const SizedBox(width: 15),
+        SizedBox(width: 15),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -254,71 +258,83 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget card() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(16),
-      // height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: const Color.fromRGBO(15, 147, 158, 1),
-        boxShadow: const [
-          BoxShadow(
-              //spreadRadius: 1,
-              blurRadius: 17,
-              color: Colors.blueGrey)
-        ],
-      ),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/image/ayo_vaksin.png"),
+  Widget stack() {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: AlignmentDirectional.center,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+          // height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: const Color.fromRGBO(15, 147, 158, 1),
+            boxShadow: const [
+              BoxShadow(
+                  //spreadRadius: 1,
+                  blurRadius: 17,
+                  color: Colors.blueGrey)
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 208,
+                child: Text(
+                  "Let's get vaccinated to increase our body immunity",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+              SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  navigatorKey.currentState!.popUntil((route) => route.isFirst);
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                  // final dataLogin = await SharedPreferences.getInstance();
+                  // final out = await dataLogin.remove("id");
+                },
+                child: Text(
+                  "Book Now",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  primary: const Color(0xFFDAB38C),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 200,
-              child: Text(
-                "Let's get vaccinated to increase our body immunity",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  height: 1.5,
-                ),
+        Positioned(
+          top: -10,
+          bottom: -10,
+          left: 0,
+          right: -230,
+          child: Container(
+            decoration: BoxDecoration(
+              // color: Colors.amber,
+              image: DecorationImage(
+                image: AssetImage("assets/image/ayo_vaksin.png"),
               ),
             ),
-            SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                navigatorKey.currentState!.popUntil((route) => route.isFirst);
-                // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
-                // final dataLogin = await SharedPreferences.getInstance();
-                // final out = await dataLogin.remove("id");
-              },
-              child: Text(
-                "Book Now",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                primary: const Color(0xFFDAB38C),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
