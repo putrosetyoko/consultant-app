@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:consultant_app/crud_doctors.dart';
-import 'package:consultant_app/listDoctor.dart';
+// ignore_for_file: preferructors, prefer_literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:consultant_app/screens/config/doctor_config.dart';
 import 'package:consultant_app/screens/messaging/message.dart';
-import 'package:consultant_app/doctors.dart';
+import 'package:consultant_app/model/doctor.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -12,15 +12,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'package:provider/provider.dart';
-
 import '../main.dart';
 
-List<Doctor> data =
-    navigatorKey.currentContext!.watch<DoctorOperations>().doctorList;
-
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -57,7 +52,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(244, 247, 252, 1),
+      backgroundColor: Color.fromRGBO(244, 247, 252, 1),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 44, left: 30, right: 30, bottom: 44),
         child: body(),
@@ -75,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         SizedBox(height: 24),
         services(),
         SizedBox(height: 24),
-        doctorList(),
+        doctors(),
       ],
     );
   }
@@ -86,7 +81,7 @@ class _HomePageState extends State<HomePage> {
         Container(
           height: 60,
           width: MediaQuery.of(context).size.width / 5,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
               color: Colors.black38,
               blurRadius: 20.0, // soften the shadow
@@ -97,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ]),
-          child: const Icon(
+          child: Icon(
             Icons.home_rounded,
             color: Color.fromRGBO(15, 147, 158, 1),
             size: 35.0,
@@ -106,7 +101,7 @@ class _HomePageState extends State<HomePage> {
         Container(
           height: 60,
           width: MediaQuery.of(context).size.width / 5,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
               color: Colors.black38,
               blurRadius: 20.0, // soften the shadow
@@ -130,7 +125,7 @@ class _HomePageState extends State<HomePage> {
         Container(
           height: 60,
           width: MediaQuery.of(context).size.width / 5,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
               color: Colors.black38,
               blurRadius: 20.0, // soften the shadow
@@ -141,7 +136,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ]),
-          child: const Icon(
+          child: Icon(
             Icons.photo_camera_rounded,
             color: Color.fromRGBO(216, 217, 218, 1),
             size: 35.0,
@@ -150,7 +145,7 @@ class _HomePageState extends State<HomePage> {
         Container(
             height: 60,
             width: MediaQuery.of(context).size.width / 5,
-            decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
               BoxShadow(
                 color: Colors.black38,
                 blurRadius: 20.0, // soften the shadow
@@ -162,22 +157,17 @@ class _HomePageState extends State<HomePage> {
               ),
             ]),
             child: GestureDetector(
-              child: const Icon(
+              child: Icon(
                 Icons.favorite_rounded,
                 color: Color.fromRGBO(216, 217, 218, 1),
                 size: 35.0,
               ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ListDoctor()));
-              },
+              onTap: () {},
             )),
         Container(
           height: 60,
           width: MediaQuery.of(context).size.width / 5,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
               color: Colors.black38,
               blurRadius: 20.0, // soften the shadow
@@ -188,7 +178,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ]),
-          child: const Icon(
+          child: Icon(
             Icons.account_circle_rounded,
             color: Color.fromRGBO(216, 217, 218, 1),
             size: 35.0,
@@ -203,13 +193,13 @@ class _HomePageState extends State<HomePage> {
     return Row(
       children: [
         Container(
-          // margin: const EdgeInsets.only(top: 10),
+          // margin: EdgeInsets.only(top: 10),
           height: 50,
           width: 50,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: Colors.teal,
-              image: const DecorationImage(
+              image: DecorationImage(
                 image: AssetImage("assets/image/man.jpg"),
               )),
           // child: ClipRRect(
@@ -225,7 +215,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(top: 10),
               child: Row(
                 children: [
                   Text(
@@ -249,7 +239,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        // const SizedBox(
+        // SizedBox(
         //   width: 10,
         // ),
         Spacer(),
@@ -269,8 +259,8 @@ class _HomePageState extends State<HomePage> {
           // height: 200,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: const Color.fromRGBO(15, 147, 158, 1),
-            boxShadow: const [
+            color: Color.fromRGBO(15, 147, 158, 1),
+            boxShadow: [
               BoxShadow(
                   //spreadRadius: 1,
                   blurRadius: 17,
@@ -297,9 +287,6 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                   navigatorKey.currentState!.popUntil((route) => route.isFirst);
-                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
-                  // final dataLogin = await SharedPreferences.getInstance();
-                  // final out = await dataLogin.remove("id");
                 },
                 child: Text(
                   "Book Now",
@@ -311,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  primary: const Color(0xFFDAB38C),
+                  primary: Color(0xFFDAB38C),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16.0),
                   ),
@@ -329,7 +316,8 @@ class _HomePageState extends State<HomePage> {
             decoration: BoxDecoration(
               // color: Colors.amber,
               image: DecorationImage(
-                image: AssetImage("assets/image/ayo_vaksin.png"),
+                image: NetworkImage(
+                    'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fayo_vaksin.png?alt=media&token=23c457a3-6db2-4480-a925-a453fad167aa'),
               ),
             ),
           ),
@@ -364,8 +352,7 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white,
-                    border:
-                        Border.all(color: const Color(0xFFBEBFC1), width: 2.0),
+                    border: Border.all(color: Color(0xFFBEBFC1), width: 2.0),
                     boxShadow: [
                       BoxShadow(
                           //spreadRadius: 1,
@@ -379,7 +366,7 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       //color: Colors.redAccent.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         image: AssetImage("assets/image/suntikan.png"),
                       ),
                     ),
@@ -405,9 +392,8 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white,
-                    border:
-                        Border.all(color: const Color(0xFFBEBFC1), width: 2.0),
-                    boxShadow: const [
+                    border: Border.all(color: Color(0xFFBEBFC1), width: 2.0),
+                    boxShadow: [
                       BoxShadow(
                           //spreadRadius: 1,
                           //blurRadius: 10,
@@ -420,7 +406,7 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       //color: Colors.redAccent.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         image: AssetImage("assets/image/gigi.png"),
                       ),
                     ),
@@ -446,9 +432,8 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white,
-                      border: Border.all(
-                          color: const Color(0xFFBEBFC1), width: 2.0),
-                      boxShadow: const [
+                      border: Border.all(color: Color(0xFFBEBFC1), width: 2.0),
+                      boxShadow: [
                         BoxShadow(
                             //spreadRadius: 1,
                             //blurRadius: 10,
@@ -460,7 +445,7 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                         //color: Colors.redAccent.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
-                        image: const DecorationImage(
+                        image: DecorationImage(
                           image: AssetImage("assets/image/hati.png"),
                         )),
                   ),
@@ -485,8 +470,7 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white,
-                    border:
-                        Border.all(color: const Color(0xFFBEBFC1), width: 2.0),
+                    border: Border.all(color: Color(0xFFBEBFC1), width: 2.0),
                     boxShadow: [
                       BoxShadow(
                           //spreadRadius: 1,
@@ -500,7 +484,7 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       //color: Colors.redAccent.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         image: AssetImage("assets/image/lainnya.png"),
                       ),
                     ),
@@ -524,7 +508,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget doctorList() {
+  Widget doctors() {
     return Column(
       children: [
         Row(
@@ -541,8 +525,11 @@ class _HomePageState extends State<HomePage> {
             Spacer(),
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const CRUDOCTOR()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        settings: RouteSettings(name: "/DoctorConfig"),
+                        builder: (context) => DoctorConfig()));
               },
               child: Text(
                 "See all",
@@ -556,25 +543,35 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         SizedBox(height: 8),
-        SizedBox(
-          height: 125 * data.length.toDouble(),
-          // color: Colors.blue,
-          child: Consumer<DoctorOperations>(
-            builder: (context, value, child) => SizedBox(
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: ListView.builder(
-                    itemCount: data.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return buildDoctorList(data[index]);
-                    }),
-              ),
-            ),
-          ),
-        )
+        doctorList(),
       ],
+    );
+  }
+
+  Widget doctorList() {
+    return StreamBuilder<List<Doctor>>(
+      stream: readDoctors(),
+      builder: ((context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong! ${snapshot.error}');
+        } else if (snapshot.hasData) {
+          final doctors = snapshot.data!;
+          return Container(
+            height: 125 * doctors.length.toDouble(),
+            child: ListView.builder(
+              itemCount: doctors.length,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return buildDoctorList(doctors[index]);
+              },
+            ),
+          );
+        } else if (!snapshot.hasData) {
+          return Center(child: Text('No data was found!'));
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      }),
     );
   }
 
@@ -591,12 +588,12 @@ class _HomePageState extends State<HomePage> {
                 width: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: const Color.fromRGBO(15, 147, 158, 1),
+                  color: Color.fromRGBO(15, 147, 158, 1),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage(doctor.image.toString()),
+                    image: NetworkImage(doctor.imageURL),
                   )),
                 ),
               ),
@@ -606,7 +603,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: const EdgeInsets.only(left: 15),
+                margin: EdgeInsets.only(left: 15),
                 child: Column(
                   children: [
                     Text(
@@ -621,11 +618,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 15, bottom: 10),
+                margin: EdgeInsets.only(left: 15, bottom: 10),
                 child: Column(
                   children: [
                     Text(
-                      doctor.spesialis,
+                      doctor.specialist + ' Specialist',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -636,9 +633,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 12),
+                margin: EdgeInsets.only(left: 12),
                 child: Row(
-                  children: const [
+                  // ignore:
+                  children: [
                     Icon(
                       Icons.star_sharp,
                       color: Colors.yellow,
@@ -664,9 +662,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 12),
+                margin: EdgeInsets.only(left: 12),
                 child: Row(
-                  children: const [
+                  children: [
                     SizedBox(width: 5),
                     Icon(
                       Icons.circle,
@@ -691,17 +689,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // void _awaitReturnValueFromSecondScreen(BuildContext context) async {
-  //   // start the SecondScreen and wait for it to finish with a result
-  //   final result = await Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => const PageTwo(),
-  //       ));
-  //
-  //   // after the SecondScreen result comes back update the Text widget with it
-  //   setState(() {
-  //     text = result;
-  //   });
-  // }
+  Stream<List<Doctor>> readDoctors() => FirebaseFirestore.instance
+      .collection('doctors')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => Doctor.fromJson(doc.data())).toList());
 }

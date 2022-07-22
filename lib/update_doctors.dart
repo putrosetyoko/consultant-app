@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:consultant_app/doctors.dart';
+
 import 'package:consultant_app/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -118,12 +118,7 @@ class _UpdateDoctorsState extends State<UpdateDoctors> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
-                    onPressed: () {
-                      navigatorKey.currentContext!
-                          .read<DoctorOperations>()
-                          .updateDoctor(
-                              _spesialis.text.trim(), _spesialis2.text.trim());
-                    },
+                    onPressed: () {},
                   ),
                   SizedBox(height: 10),
                   Row(
