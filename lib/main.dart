@@ -1,21 +1,26 @@
 // import 'package:consultant_app/home_page.dart';
-import 'package:consultant_app/doctors.dart';
+
 import 'package:consultant_app/screens/home_page.dart';
 import 'package:consultant_app/screens/auth/login_page.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
+
 import 'package:flutter/foundation.dart';
-//import 'package:consultant_app/pageTwo.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
   );
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -50,12 +55,7 @@ void main() async {
     );
   }
   print("Token: ${(await FirebaseMessaging.instance.getToken()).toString()}");
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => DoctorOperations()),
-    ],
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -74,6 +74,8 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -87,6 +89,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

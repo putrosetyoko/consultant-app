@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:consultant_app/doctors.dart';
+
 import 'package:consultant_app/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -102,11 +102,7 @@ class _DeleteDoctorState extends State<DeleteDoctor> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
-                    onPressed: () {
-                      navigatorKey.currentContext!
-                          .read<DoctorOperations>()
-                          .deleteDoctor(_nama.text.trim());
-                    },
+                    onPressed: () {},
                   ),
                   SizedBox(height: 10),
                   Row(
