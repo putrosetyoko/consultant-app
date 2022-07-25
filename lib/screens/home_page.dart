@@ -66,7 +66,8 @@ class _HomePageState extends State<HomePage> {
       children: [
         header(),
         SizedBox(height: 32),
-        stack(),
+        card(),
+        // stack(),
         SizedBox(height: 24),
         services(),
         SizedBox(height: 24),
@@ -248,81 +249,78 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget stack() {
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: AlignmentDirectional.center,
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: 28, vertical: 16),
-          // height: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Color.fromRGBO(15, 147, 158, 1),
-            boxShadow: [
-              BoxShadow(
-                  //spreadRadius: 1,
-                  blurRadius: 17,
-                  color: Colors.blueGrey)
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 208,
-                child: Text(
-                  "Let's get vaccinated to increase our body immunity",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    height: 1.5,
-                  ),
-                ),
-              ),
-              SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                  navigatorKey.currentState!.popUntil((route) => route.isFirst);
-                },
-                child: Text(
-                  "Book Now",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  primary: Color(0xFFDAB38C),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          top: -10,
-          bottom: -10,
-          left: 0,
-          right: -230,
-          child: Container(
-            decoration: BoxDecoration(
-              // color: Colors.amber,
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fayo_vaksin.png?alt=media&token=23c457a3-6db2-4480-a925-a453fad167aa'),
+  Widget card() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+      // height: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Color.fromRGBO(15, 147, 158, 1),
+        boxShadow: [
+          BoxShadow(
+              //spreadRadius: 1,
+              blurRadius: 17,
+              color: Colors.blueGrey)
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 208,
+            child: Text(
+              "Let's get vaccinated to increase our body immunity",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                height: 1.5,
               ),
             ),
           ),
+          SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              navigatorKey.currentState!.popUntil((route) => route.isFirst);
+            },
+            child: Text(
+              "Book Now",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              primary: Color(0xFFDAB38C),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget stack() {
+    return Positioned(
+      top: -10,
+      bottom: -10,
+      left: 0,
+      right: -230,
+      child: Container(
+        decoration: BoxDecoration(
+          // color: Colors.amber,
+          image: DecorationImage(
+            image: NetworkImage(
+                'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fayo_vaksin.png?alt=media&token=23c457a3-6db2-4480-a925-a453fad167aa'),
+          ),
         ),
-      ],
+      ),
     );
   }
 
