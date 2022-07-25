@@ -1,17 +1,17 @@
 // ignore_for_file: prefer__literals_to_create_immutables, prefer__ructors, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:io';
+
 import 'package:consultant_app/api/firebase_api.dart';
 import 'package:consultant_app/model/doctor.dart';
-import 'package:consultant_app/screens/home_page.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-
-import 'package:path/path.dart' as Path;
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultant_app/delete_doctors.dart';
 import 'package:consultant_app/update_doctors.dart';
 import 'package:consultant_app/main.dart';
+
+import 'package:path/path.dart' as path;
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
 
 import 'package:flutter/material.dart';
@@ -21,23 +21,8 @@ class DoctorConfig extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 247, 252, 1),
-      appBar: PreferredSize(
-        child: AppBar(
-          backgroundColor: Color.fromRGBO(244, 247, 252, 1),
-          foregroundColor: Colors.blue,
-          title: Text(
-            'Doctor Settings',
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          centerTitle: true,
-          elevation: 0,
-        ),
-        preferredSize: Size.fromHeight(44),
-      ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 8, left: 30, right: 30, bottom: 44),
+        padding: EdgeInsets.only(top: 44, left: 30, right: 30),
         child: body(),
       ),
     );
@@ -45,10 +30,40 @@ class DoctorConfig extends StatelessWidget {
 
   Widget body() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        header(),
+        SizedBox(height: 24),
         addButton(),
+        SizedBox(height: 16),
         updateButton(),
+        SizedBox(height: 16),
         deleteButton(),
+        SizedBox(height: 24),
+        backButton(),
+      ],
+    );
+  }
+
+  Widget header() {
+    return Row(
+      children: [
+        Text(
+          "Halaman Tambah Dokter",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+            color: Colors.teal,
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Icon(
+          Icons.waving_hand_rounded,
+          color: Color.fromRGBO(255, 221, 103, 1),
+          size: 25.0,
+        ),
       ],
     );
   }
@@ -63,6 +78,7 @@ class DoctorConfig extends StatelessWidget {
         ),
       ),
       style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: 15),
         primary: Color(0xFF008080),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -86,6 +102,7 @@ class DoctorConfig extends StatelessWidget {
         ),
       ),
       style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: 15),
         primary: Color(0xFF008080),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -109,6 +126,7 @@ class DoctorConfig extends StatelessWidget {
         ),
       ),
       style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: 15),
         primary: Color(0xFF008080),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -119,6 +137,25 @@ class DoctorConfig extends StatelessWidget {
           builder: (context) => DeleteDoctor(),
         ),
       ),
+    );
+  }
+
+  Widget backButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () => navigatorKey.currentState!.pop(),
+          child: Text(
+            "Back",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: Colors.teal,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -140,7 +177,7 @@ class _DoctorAddState extends State<DoctorAdd> {
   @override
   Widget build(BuildContext context) {
     final fileName =
-        file != null ? Path.basename(file!.path) : 'No file selected!';
+        file != null ? path.basename(file!.path) : 'No file selected!';
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -309,7 +346,7 @@ class _DoctorAddState extends State<DoctorAdd> {
   Future uploadFile() async {
     if (file == null) return;
 
-    final fileName = Path.basename(file!.path);
+    final fileName = path.basename(file!.path);
     final destination = 'doctors/$fileName';
 
     task = FirebaseApi.uploadFile(destination, file!);

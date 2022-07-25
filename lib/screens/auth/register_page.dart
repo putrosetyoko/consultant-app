@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultant_app/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:consultant_app/screens/home_page.dart';
-// import 'package:consultant_app/register_page.dart';
 
-// List<Map<String, dynamic>> dataAkun = DummyData.data;
+import 'package:consultant_app/model/user.dart' as user_model;
+
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+
+import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -19,6 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
   String errorMessage = '';
   bool isPasswordVisible = false;
   // String nama = '';
+
+  final TextEditingController _name = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
@@ -101,6 +103,23 @@ class _RegisterPageState extends State<RegisterPage> {
                     width: 330,
                   ),
                 ],
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(247, 247, 247, 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextField(
+                  controller: _name,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.person_outline_rounded),
+                    hintText: "Nama",
+                    border: InputBorder.none,
+                  ),
+                ),
               ),
               // const SizedBox(height:500,),
               Container(
@@ -204,13 +223,33 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future register() async {
+    String name = _name.text.trim();
+    String email = _email.text.trim();
+    String password = _password.text.trim();
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email.text.trim(),
-        password: _password.text.trim(),
+      await auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
       );
+
+      final auth.FirebaseAuth loginSession = auth.FirebaseAuth.instance;
+
+      final auth.User? user = loginSession.currentUser;
+      final uid = user!.uid;
+
+      final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
+
+      final newUser = user_model.User(
+        id: uid,
+        name: name,
+        email: email,
+      );
+
+      final json = newUser.toJson();
+      await docUser.set(json);
+
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    } on FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message!;
       });
