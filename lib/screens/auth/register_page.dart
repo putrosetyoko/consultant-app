@@ -29,34 +29,33 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: SingleChildScrollView(
-          padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
+          padding:
+              const EdgeInsets.only(top: 50, left: 30, right: 30, bottom: 20),
           child: Column(
             children: [
-              Row(
-                children: const [
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Selamat Datang",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: "Poppins",
+                          color: Colors.teal,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Icon(
+                        Icons.waving_hand_rounded,
+                        color: Color.fromRGBO(255, 221, 103, 1),
+                        size: 25.0,
+                      ),
+                    ],
+                  ),
                   Text(
-                    "Selamat Datang",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800,
-                      fontFamily: "Poppins",
-                      color: Colors.teal,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.waving_hand_rounded,
-                    color: Color.fromRGBO(255, 221, 103, 1),
-                    size: 25.0,
-                  ),
-                ],
-              ),
-              Row(
-                children: const [
-                  Text(
-                    "Senang bertemu dengan Anda kembali. Silakan",
+                    'Senang bertemu dengan anda kembali. Silakan login untuk mengakses aplikasi.',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -65,35 +64,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ],
-              ),
-              Row(
-                children: const [
-                  Text(
-                    "Registrasi akun baru untuk masuk ke sistem",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                      color: Color.fromRGBO(170, 170, 170, 1),
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: const [
-                  Text(
-                    "aplikasi.",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "Poppins",
-                      color: Color.fromRGBO(170, 170, 170, 1),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10,
               ),
               Row(
                 children: [
@@ -105,7 +75,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 decoration: BoxDecoration(
@@ -121,9 +90,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              // const SizedBox(height:500,),
+              SizedBox(height: 8),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 decoration: BoxDecoration(
@@ -139,8 +107,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
+              SizedBox(height: 8),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 decoration: BoxDecoration(
@@ -168,15 +136,21 @@ class _RegisterPageState extends State<RegisterPage> {
                   obscureText: !isPasswordVisible,
                 ),
               ),
-              Text(errorMessage),
-              const SizedBox(
-                height: 1,
+              SizedBox(height: 8),
+              Container(
+                height: 40,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    errorMessage,
+                    style: TextStyle(fontSize: 12),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
               ),
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
                   ElevatedButton(
                     child: const Text(
                       " Create Account",
@@ -197,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     onPressed: register,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
