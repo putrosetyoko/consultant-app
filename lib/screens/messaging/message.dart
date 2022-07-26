@@ -2,6 +2,7 @@
 
 import 'package:consultant_app/main.dart';
 import 'package:consultant_app/screens/home_page.dart';
+import 'package:consultant_app/screens/setting/profile.dart';
 
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -128,11 +129,14 @@ class _MessagingState extends State<Messaging> {
               ),
             ),
           ]),
-          child: const Icon(
-            Icons.account_circle_rounded,
-            color: Color.fromRGBO(216, 217, 218, 1),
-            size: 35.0,
-          ),
+          child: GestureDetector(
+              onTap: () => navigatorKey.currentState!
+                  .push(MaterialPageRoute(builder: (context) => ProfilePage())),
+              child: const Icon(
+                Icons.account_circle_rounded,
+                color: Color.fromRGBO(216, 217, 218, 1),
+                size: 35.0,
+              )),
         ),
       ],
     );
