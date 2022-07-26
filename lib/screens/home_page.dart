@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
       children: [
         header(),
         SizedBox(height: 32),
-        card(),
-        // stack(),
+        // card(),
+        stack(),
         SizedBox(height: 24),
         services(),
         SizedBox(height: 24),
@@ -307,20 +307,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget stack() {
-    return Positioned(
-      top: -10,
-      bottom: -10,
-      left: 0,
-      right: -230,
-      child: Container(
-        decoration: BoxDecoration(
-          // color: Colors.amber,
-          image: DecorationImage(
-            image: NetworkImage(
-                'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fayo_vaksin.png?alt=media&token=23c457a3-6db2-4480-a925-a453fad167aa'),
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        card(),
+        Positioned(
+          top: -10,
+          bottom: -10,
+          left: 0,
+          right: -230,
+          child: Container(
+            decoration: BoxDecoration(
+              // color: Colors.amber,
+              image: DecorationImage(
+                image: NetworkImage(
+                    'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fayo_vaksin.png?alt=media&token=23c457a3-6db2-4480-a925-a453fad167aa'),
+              ),
+            ),
           ),
-        ),
-      ),
+        )
+      ],
     );
   }
 
