@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultant_app/screens/config/doctor_config.dart';
 import 'package:consultant_app/screens/messaging/message.dart';
 import 'package:consultant_app/model/doctor.dart';
+import 'package:consultant_app/screens/setting/profile.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -166,25 +167,28 @@ class _HomePageState extends State<HomePage> {
               onTap: () {},
             )),
         Container(
-          height: 60,
-          width: MediaQuery.of(context).size.width / 5,
-          decoration: BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.black38,
-              blurRadius: 20.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                26.0, // Move to right 10  horizontally
-                -1.0, // Move to bottom 10 Vertically
+            height: 60,
+            width: MediaQuery.of(context).size.width / 5,
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(
+                color: Colors.black38,
+                blurRadius: 20.0, // soften the shadow
+                spreadRadius: 1.0, //extend the shadow
+                offset: Offset(
+                  26.0, // Move to right 10  horizontally
+                  -1.0, // Move to bottom 10 Vertically
+                ),
               ),
-            ),
-          ]),
-          child: Icon(
-            Icons.account_circle_rounded,
-            color: Color.fromRGBO(216, 217, 218, 1),
-            size: 35.0,
-          ),
-        ),
+            ]),
+            child: GestureDetector(
+              onTap: () => navigatorKey.currentState!
+                  .push(MaterialPageRoute(builder: (context) => ProfilePage())),
+              child: Icon(
+                Icons.account_circle_rounded,
+                color: Color.fromRGBO(216, 217, 218, 1),
+                size: 35.0,
+              ),
+            )),
       ],
     );
   }
