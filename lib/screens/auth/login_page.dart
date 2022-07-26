@@ -147,10 +147,9 @@ class _LoginPageState extends State<LoginPage> {
           // height: 40,
         ),
         Container(
-          margin: EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
+          margin: EdgeInsets.only(left: 210),
+          child: GestureDetector(
+            child:
               Text(
                 "Forgot Password?",
                 style: TextStyle(
@@ -159,10 +158,40 @@ class _LoginPageState extends State<LoginPage> {
                   fontFamily: "Poppins",
                   color: Colors.teal,
                 ),
-              )
-            ],
+              ),
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: Text(
+                        'Relax and Try Remember your password.',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w100,
+                        fontFamily: "Poppins",
+                        color: Colors.teal,
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(
+                            'OK',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Poppins",
+                            color: Colors.teal,
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+              );
+            },
           ),
         ),
+        SizedBox(height: 15),
         Column(
           children: [
             ElevatedButton(
@@ -199,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
               style: ElevatedButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 130, vertical: 15),
-                primary: Color.fromARGB(100, 0, 0, 0),
+                primary: Color.fromARGB(20, 0, 0, 0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
