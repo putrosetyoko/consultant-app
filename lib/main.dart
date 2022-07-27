@@ -1,7 +1,9 @@
-// import 'package:consultant_app/home_page.dart';
+// ignore_for_file: preferructors, prefer_literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultant_app/screens/home_page.dart';
 import 'package:consultant_app/screens/auth/login_page.dart';
+import 'package:consultant_app/model/user.dart' as user_model;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -72,6 +74,12 @@ late AndroidNotificationChannel channel;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 final navigatorKey = GlobalKey<NavigatorState>();
+late user_model.User _user;
+final _auth = FirebaseAuth.instance.currentUser!;
+
+user_model.User get getUser {
+  return _user;
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -98,13 +106,39 @@ class MainPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return HomePage();
+            return loadPage();
           } else {
             return LoginPage();
           }
         },
       ),
     );
+  }
+
+  Widget loadPage() {
+    return FutureBuilder<user_model.User?>(
+      future: readUser(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text('Something went wrong! ${snapshot.error}'));
+        } else if (snapshot.hasData) {
+          _user = snapshot.data!;
+          return HomePage();
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  Future<user_model.User?> readUser() async {
+    final docUser =
+        FirebaseFirestore.instance.collection('users').doc(_auth.uid);
+    final snapshot = await docUser.get();
+    if (snapshot.exists) {
+      return user_model.User.fromJson(snapshot.data()!);
+    }
+    return null;
   }
 }
 

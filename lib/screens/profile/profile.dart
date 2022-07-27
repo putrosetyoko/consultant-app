@@ -1,3 +1,5 @@
+// ignore_for_file: preferructors, prefer_literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultant_app/screens/config/doctor_config.dart';
 import 'package:consultant_app/screens/home_page.dart';
@@ -26,8 +28,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final user = FirebaseAuth.instance.currentUser!;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,8 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ]),
             child: GestureDetector(
-              onTap: () => navigatorKey.currentState!
-                  .push(MaterialPageRoute(builder: (context) => HomePage())),
+              onTap: () => navigatorKey.currentState!.pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                  (route) => false),
               child: Icon(
                 Icons.home_rounded,
                 color: Color.fromRGBO(216, 217, 218, 1),
@@ -178,7 +179,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget header() {
-    final userEmail = user.email!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -198,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(100),
               color: Colors.teal,
               image: DecorationImage(
-                image: AssetImage("assets/image/man.jpg"),
+                image: NetworkImage(getUser.photoURL.toString()),
               )),
           // child: ClipRRect(
           //   borderRadius: BorderRadius.circular(30),
@@ -214,7 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Azka Faza Dzulqarnain",
+                getUser.name,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
@@ -222,7 +222,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Text(
-                userEmail,
+                getUser.email,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w100,
