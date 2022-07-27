@@ -1,14 +1,14 @@
 import 'package:consultant_app/main.dart';
 import 'package:flutter/material.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key}) : super(key: key);
+class ChangePasswordPage extends StatefulWidget {
+  const ChangePasswordPage({Key? key}) : super(key: key);
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<ChangePasswordPage> createState() => _ChangePasswordPageState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class _EditProfileState extends State<EditProfile> {
 
   Widget body() {
     return Column(
-      children: [header(), SizedBox(height: 20), changeName()],
+      children: [header(), SizedBox(height: 20), changePassword()],
     );
   }
 
@@ -62,7 +62,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget changeName() {
+  Widget changePassword() {
     var navigatorKey;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,7 @@ class _EditProfileState extends State<EditProfile> {
         Container(
           padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
           child: Text(
-            'Change Your Name',
+            'Current Password',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w100,
@@ -88,20 +88,47 @@ class _EditProfileState extends State<EditProfile> {
           child: TextField(
             decoration: InputDecoration(
               // icon: Icon(Icons.person_outline_rounded),
-              hintText: "New Name",
+              hintText: "Current Password",
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+          child: Text(
+            'New Password',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w100,
+              color: Color.fromRGBO(55, 67, 103, 1),
+            ),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(247, 247, 247, 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextField(
+            decoration: InputDecoration(
+              // icon: Icon(Icons.person_outline_rounded),
+              hintText: "New Password",
               border: InputBorder.none,
             ),
           ),
         ),
         SizedBox(height: 15),
-        SubmitName()
+        SubmitPassword()
       ],
     );
   }
 }
 
-class SubmitName extends StatelessWidget {
-  const SubmitName({
+class SubmitPassword extends StatelessWidget {
+  const SubmitPassword({
     Key? key,
   }) : super(key: key);
 
