@@ -2,15 +2,11 @@
 
 import 'dart:io';
 
-import 'package:consultant_app/api/firebase_api.dart';
 import 'package:consultant_app/model/doctor.dart';
 import 'package:consultant_app/main.dart';
 
-import 'package:path/path.dart' as path;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:file_picker/file_picker.dart';
 
 import 'package:flutter/material.dart';
 
@@ -165,9 +161,8 @@ class _DoctorDeleteState extends State<DoctorDelete> {
       onTap: () {
         nameCon.text = doctor.name;
         doctorToDelete = doctor.id;
-        print(doctorToDelete);
       },
-      child: Container(
+      child: SizedBox(
         height: 50,
         // color: Colors.orange,
         // crossAxisAlignment: CrossAxisAlignment.center,

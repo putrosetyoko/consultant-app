@@ -81,9 +81,8 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       height: 250,
       // color: Colors.black,
-      child: Image.asset(
-        'assets/image/login.jpg',
-      ),
+      child: Image.network(
+          'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Flogin_image.jpg?alt=media&token=6ad646f6-fc07-49ea-ba25-a4874ee3b117'),
     );
   }
 
@@ -149,44 +148,43 @@ class _LoginPageState extends State<LoginPage> {
         Container(
           margin: EdgeInsets.only(left: 210),
           child: GestureDetector(
-            child:
-              Text(
-                "Forgot Password?",
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: "Poppins",
-                  color: Colors.teal,
-                ),
+            child: Text(
+              "Forgot Password?",
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                fontFamily: "Poppins",
+                color: Colors.teal,
               ),
+            ),
             onTap: () {
               showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    content: Text(
-                        'Relax and Try Remember your password.',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w100,
-                        fontFamily: "Poppins",
-                        color: Colors.teal,
-                      ),
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: Text(
+                    'Relax and Try Remember your password.',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w100,
+                      fontFamily: "Poppins",
+                      color: Colors.teal,
                     ),
-                    actions: [
-                      TextButton(
-                        child: Text(
-                            'OK',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Poppins",
-                            color: Colors.teal,
-                          ),
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ],
                   ),
+                  actions: [
+                    TextButton(
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Poppins",
+                          color: Colors.teal,
+                        ),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
               );
             },
           ),

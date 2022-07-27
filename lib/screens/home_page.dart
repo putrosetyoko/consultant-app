@@ -313,7 +313,7 @@ class _HomePageState extends State<HomePage> {
               // color: Colors.amber,
               image: DecorationImage(
                 image: NetworkImage(
-                    'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fayo_vaksin.png?alt=media&token=23c457a3-6db2-4480-a925-a453fad167aa'),
+                    'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fhome_card_image.png?alt=media&token=c3362853-cef3-4f55-9539-a6761b5fdaf6'),
               ),
             ),
           ),
@@ -363,7 +363,8 @@ class _HomePageState extends State<HomePage> {
                       //color: Colors.redAccent.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                        image: AssetImage("assets/image/suntikan.png"),
+                        image: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fneedle_image.png?alt=media&token=e2478c25-f59c-4476-a7e2-cedfd54b66b6"),
                       ),
                     ),
                   ),
@@ -403,7 +404,8 @@ class _HomePageState extends State<HomePage> {
                       //color: Colors.redAccent.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                        image: AssetImage("assets/image/gigi.png"),
+                        image: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Ftooth_image.png?alt=media&token=e63426d4-8674-46d4-a1a7-65f50a0dae4e"),
                       ),
                     ),
                   ),
@@ -442,7 +444,8 @@ class _HomePageState extends State<HomePage> {
                         //color: Colors.redAccent.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                          image: AssetImage("assets/image/hati.png"),
+                          image: NetworkImage(
+                              "https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Flungs_image.png?alt=media&token=8fc3f394-fa92-4f4b-a366-785583d28715"),
                         )),
                   ),
                 ),
@@ -481,7 +484,8 @@ class _HomePageState extends State<HomePage> {
                       //color: Colors.redAccent.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                        image: AssetImage("assets/image/lainnya.png"),
+                        image: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Fothers_image.png?alt=media&token=147a2198-6ac2-406b-a2e7-78eaf102eb3b"),
                       ),
                     ),
                   ),
@@ -511,7 +515,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Top Rated Doctors",
+              "Our Doctors",
               style: TextStyle(
                 fontSize: 21,
                 fontWeight: FontWeight.w800,
@@ -538,7 +542,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 16),
         doctorList(),
       ],
     );
@@ -552,14 +556,18 @@ class _HomePageState extends State<HomePage> {
           return Text('Something went wrong! ${snapshot.error}');
         } else if (snapshot.hasData) {
           final doctors = snapshot.data!;
-          return Container(
+          return SizedBox(
             height: 125 * doctors.length.toDouble(),
-            child: ListView.builder(
-              itemCount: doctors.length,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return buildDoctorList(doctors[index]);
-              },
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: ListView.builder(
+                itemCount: doctors.length,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return buildDoctorList(doctors[index]);
+                },
+              ),
             ),
           );
         } else if (!snapshot.hasData) {
