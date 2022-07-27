@@ -3,6 +3,7 @@ import 'package:consultant_app/screens/config/doctor_config.dart';
 import 'package:consultant_app/screens/home_page.dart';
 import 'package:consultant_app/screens/messaging/message.dart';
 import 'package:consultant_app/model/doctor.dart';
+import 'package:consultant_app/screens/profile/help/help_page.dart';
 import 'package:consultant_app/screens/profile/profile.dart';
 import 'package:consultant_app/screens/profile/settings/settings_page.dart';
 
@@ -328,45 +329,49 @@ Widget card() {
                   ),
                 ),
                 SizedBox(height: 10),
-                Container(
-                  // color: Colors.amberAccent,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        // margin: EdgeInsets.only(top: 20, left: 20),
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
-                          color: Color.fromARGB(247, 241, 242, 255),
-                        ),
-                        child: Icon(
-                          Icons.help_center_rounded,
-                          color: Color.fromRGBO(55, 67, 103, 1),
-                          size: 25,
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        // margin: EdgeInsets.only(top: 20, left: 10),
-                        // color: Colors.amber,
-                        child: Text(
-                          'Help',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w100,
+                GestureDetector(
+                  onTap: () => navigatorKey.currentState!.push(
+                      MaterialPageRoute(builder: (context) => HelpPage())),
+                  child: Container(
+                    // color: Colors.amberAccent,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.only(top: 20, left: 20),
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(22),
+                            color: Color.fromARGB(247, 241, 242, 255),
+                          ),
+                          child: Icon(
+                            Icons.help_center_rounded,
                             color: Color.fromRGBO(55, 67, 103, 1),
+                            size: 25,
                           ),
                         ),
-                      ),
-                      Spacer(),
-                      Icon(
-                        Icons.chevron_right_rounded,
-                        color: Color.fromRGBO(55, 67, 103, 1),
-                        size: 30,
-                      ),
-                    ],
+                        SizedBox(width: 10),
+                        Container(
+                          // margin: EdgeInsets.only(top: 20, left: 10),
+                          // color: Colors.amber,
+                          child: Text(
+                            'Help',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w100,
+                              color: Color.fromRGBO(55, 67, 103, 1),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: Color.fromRGBO(55, 67, 103, 1),
+                          size: 30,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
