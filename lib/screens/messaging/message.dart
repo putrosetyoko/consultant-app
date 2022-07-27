@@ -2,7 +2,7 @@
 
 import 'package:consultant_app/main.dart';
 import 'package:consultant_app/screens/home_page.dart';
-import 'package:consultant_app/screens/setting/profile.dart';
+import 'package:consultant_app/screens/profile/profile.dart';
 
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';

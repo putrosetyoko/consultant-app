@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultant_app/screens/config/doctor_config.dart';
 import 'package:consultant_app/screens/messaging/message.dart';
 import 'package:consultant_app/model/doctor.dart';
-import 'package:consultant_app/screens/setting/profile.dart';
+import 'package:consultant_app/screens/profile/profile.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

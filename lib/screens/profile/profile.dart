@@ -1,10 +1,10 @@
-// ignore_for_file: preferructors, prefer_literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultant_app/screens/config/doctor_config.dart';
 import 'package:consultant_app/screens/home_page.dart';
 import 'package:consultant_app/screens/messaging/message.dart';
 import 'package:consultant_app/model/doctor.dart';
-import 'package:consultant_app/screens/setting/profile.dart';
+import 'package:consultant_app/screens/profile/profile.dart';
+import 'package:consultant_app/screens/profile/settings/settings_page.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -212,7 +212,7 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Dr. Putro Setyoko",
+                "Azka Faza Dzulqarnain",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
@@ -282,45 +282,49 @@ Widget card() {
                 color: Color.fromARGB(55, 255, 255, 255),
               ),
               child: Column(children: [
-                Container(
-                  // color: Colors.amberAccent,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        // margin: EdgeInsets.only(top: 20, left: 20),
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
-                          color: Color.fromARGB(247, 241, 242, 255),
-                        ),
-                        child: Icon(
-                          Icons.settings,
-                          color: Color.fromRGBO(55, 67, 103, 1),
-                          size: 25,
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        // margin: EdgeInsets.only(top: 20, left: 10),
-                        // color: Colors.amber,
-                        child: Text(
-                          'Settings',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w100,
+                GestureDetector(
+                  onTap: () => navigatorKey.currentState!.push(
+                      MaterialPageRoute(builder: (context) => SettingsPage())),
+                  child: Container(
+                    // color: Colors.amberAccent,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.only(top: 20, left: 20),
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(22),
+                            color: Color.fromARGB(247, 241, 242, 255),
+                          ),
+                          child: Icon(
+                            Icons.settings,
                             color: Color.fromRGBO(55, 67, 103, 1),
+                            size: 25,
                           ),
                         ),
-                      ),
-                      Spacer(),
-                      Icon(
-                        Icons.chevron_right_rounded,
-                        color: Color.fromRGBO(55, 67, 103, 1),
-                        size: 30,
-                      ),
-                    ],
+                        SizedBox(width: 10),
+                        Container(
+                          // margin: EdgeInsets.only(top: 20, left: 10),
+                          // color: Colors.amber,
+                          child: Text(
+                            'Settings',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w100,
+                              color: Color.fromRGBO(55, 67, 103, 1),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: Color.fromRGBO(55, 67, 103, 1),
+                          size: 30,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
