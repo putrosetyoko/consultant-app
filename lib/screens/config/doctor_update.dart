@@ -42,7 +42,7 @@ class _DoctorUpdateState extends State<DoctorUpdate> {
         header(),
         SizedBox(height: 24),
         doctorList(),
-        SizedBox(height: 16),
+        SizedBox(height: 24),
         form(),
         Text(errorMessage),
         SizedBox(height: 32),
@@ -145,6 +145,7 @@ class _DoctorUpdateState extends State<DoctorUpdate> {
     return Column(
       children: [
         nameField(),
+        SizedBox(height: 16),
         specialistField(),
       ],
     );
