@@ -1,11 +1,12 @@
 // ignore_for_file: preferructors, prefer_literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:consultant_app/main.dart';
 import 'package:consultant_app/screens/config/doctor_config.dart';
 import 'package:consultant_app/screens/messaging/message.dart';
 import 'package:consultant_app/model/doctor.dart';
 import 'package:consultant_app/screens/profile/profile.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/foundation.dart';
@@ -13,11 +14,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import '../main.dart';
-
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -47,8 +44,6 @@ class _HomePageState extends State<HomePage> {
       }
     });
   }
-
-  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -194,26 +189,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget header() {
-    final userEmail = user.email!;
     return Row(
       children: [
         Container(
-          // margin: EdgeInsets.only(top: 10),
           height: 50,
           width: 50,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: Colors.teal,
-              image: DecorationImage(
-                image: AssetImage("assets/image/man.jpg"),
-              )),
-          // child: ClipRRect(
-          //   borderRadius: BorderRadius.circular(30),
-          //   child: Image.network(
-          //     'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80',
-          //     fit: BoxFit.cover,
-          //   ),
-          // )),
+            borderRadius: BorderRadius.circular(25),
+            color: Colors.teal,
+            image: DecorationImage(
+              image: NetworkImage(getUser.photoURL.toString()),
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
         SizedBox(width: 15),
         Column(
@@ -224,7 +212,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   Text(
-                    userEmail,
+                    getUser.name,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w800,
@@ -286,7 +274,7 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 12),
           ElevatedButton(
             onPressed: () async {
-              await FirebaseAuth.instance.signOut();
+              await auth.FirebaseAuth.instance.signOut();
               navigatorKey.currentState!.popUntil((route) => route.isFirst);
             },
             child: Text(
@@ -597,12 +585,10 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Color.fromRGBO(15, 147, 158, 1),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
+                  image: DecorationImage(
                     image: NetworkImage(doctor.imageURL),
-                  )),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ],

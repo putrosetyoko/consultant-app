@@ -44,8 +44,9 @@ class _MessagingState extends State<Messaging> {
             ),
           ]),
           child: GestureDetector(
-            onTap: () => navigatorKey.currentState!
-                .push(MaterialPageRoute(builder: (context) => HomePage())),
+            onTap: () => navigatorKey.currentState!.pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => HomePage()),
+                (route) => false),
             child: Icon(
               Icons.home_rounded,
               color: Color.fromRGBO(216, 217, 218, 1),
