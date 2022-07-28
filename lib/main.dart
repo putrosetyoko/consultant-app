@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultant_app/screens/home_page.dart';
-import 'package:consultant_app/screens/auth/login_page.dart';
+import 'package:consultant_app/screens/auth/login.dart';
 import 'package:consultant_app/model/user.dart' as user_model;
 
 import 'package:firebase_auth/firebase_auth.dart';

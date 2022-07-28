@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:consultant_app/main.dart';
-import 'package:consultant_app/screens/auth/register_page.dart';
+import 'package:consultant_app/screens/auth/forgot_password.dart';
+import 'package:consultant_app/screens/auth/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:consultant_app/register_page.dart';
@@ -17,25 +18,34 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String errorMessage = '';
   bool isPasswordVisible = false;
-  // String nama = '';
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController emailCon = TextEditingController();
+  final TextEditingController passCon = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    emailCon.dispose();
+    passCon.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-      body: body(),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+        body: body(),
+      ),
     );
   }
 
   Widget body() {
     return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(30, 50, 30, 10),
+      padding: EdgeInsets.fromLTRB(30, 44, 30, 0),
       child: Column(
         children: [
           header(),
-          loginImage(),
           loginForm(),
         ],
       ),
@@ -64,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
+        SizedBox(height: 8),
         Text(
           'Senang bertemu dengan anda kembali. Silakan login untuk mengakses aplikasi.',
           style: TextStyle(
@@ -73,16 +84,13 @@ class _LoginPageState extends State<LoginPage> {
             color: Color.fromRGBO(170, 170, 170, 1),
           ),
         ),
+        SizedBox(
+          height: 250,
+          // color: Colors.black,
+          child: Image.network(
+              'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Flogin_image.jpg?alt=media&token=6ad646f6-fc07-49ea-ba25-a4874ee3b117'),
+        ),
       ],
-    );
-  }
-
-  Widget loginImage() {
-    return SizedBox(
-      height: 250,
-      // color: Colors.black,
-      child: Image.network(
-          'https://firebasestorage.googleapis.com/v0/b/consultantapp-firebase.appspot.com/o/app%2Flogin_image.jpg?alt=media&token=6ad646f6-fc07-49ea-ba25-a4874ee3b117'),
     );
   }
 
@@ -90,14 +98,13 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           decoration: BoxDecoration(
             color: const Color.fromRGBO(247, 247, 247, 1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextField(
-            controller: _email,
+            controller: emailCon,
             decoration: const InputDecoration(
               icon: Icon(Icons.person_outline_rounded),
               hintText: "Email",
@@ -105,15 +112,15 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
+        SizedBox(height: 16),
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           decoration: BoxDecoration(
             color: const Color.fromRGBO(247, 247, 247, 1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextField(
-            controller: _password,
+            controller: passCon,
             decoration: InputDecoration(
               icon: Icon(Icons.lock_outline_rounded),
               suffixIcon: IconButton(
@@ -133,23 +140,29 @@ class _LoginPageState extends State<LoginPage> {
             obscureText: !isPasswordVisible,
           ),
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              errorMessage,
-              style: TextStyle(fontSize: 12),
-              textAlign: TextAlign.start,
-            ),
+        SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            children: [
+              SizedBox(width: 12),
+              Text(
+                errorMessage,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.red,
+                ),
+                textAlign: TextAlign.start,
+              ),
+            ],
           ),
-          // height: 40,
         ),
-        Container(
-          margin: EdgeInsets.only(left: 210),
+        SizedBox(height: 16),
+        Align(
+          alignment: Alignment.centerRight,
           child: GestureDetector(
             child: Text(
-              "Forgot Password?",
+              "Lupa Password?",
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
@@ -158,38 +171,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  content: Text(
-                    'Relax and Try Remember your password.',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w100,
-                      fontFamily: "Poppins",
-                      color: Colors.teal,
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      child: Text(
-                        'OK',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Poppins",
-                          color: Colors.teal,
-                        ),
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ],
+              navigatorKey.currentState!.push(
+                MaterialPageRoute(
+                  builder: (context) => ForgotPasswordPage(),
                 ),
               );
             },
           ),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: 12),
         Column(
           children: [
             ElevatedButton(
@@ -242,13 +232,16 @@ class _LoginPageState extends State<LoginPage> {
 
   Future login() async {
     showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (context) => Center(child: CircularProgressIndicator()));
+      barrierDismissible: true,
+      context: context,
+      builder: (context) => Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _email.text.trim(),
-        password: _password.text.trim(),
+        email: emailCon.text.trim(),
+        password: passCon.text.trim(),
       );
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
