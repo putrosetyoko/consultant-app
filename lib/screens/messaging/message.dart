@@ -31,18 +31,21 @@ class _MessagingState extends State<Messaging> {
       children: <Widget>[
         Container(
           height: 60,
-          width: MediaQuery.of(context).size.width / 5,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.black38,
-              blurRadius: 20.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                14.0, // Move to right 10  horizontally
-                -1.0, // Move to bottom 10 Vertically
+          width: MediaQuery.of(context).size.width / 3,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black38,
+                blurRadius: 20.0, // soften the shadow
+                spreadRadius: 1.0, //extend the shadow
+                offset: Offset(
+                  14.0, // Move to right 10  horizontally
+                  -1.0, // Move to bottom 10 Vertically
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
           child: GestureDetector(
             onTap: () => navigatorKey.currentState!.pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => HomePage()),
@@ -56,19 +59,22 @@ class _MessagingState extends State<Messaging> {
         ),
         Container(
           height: 60,
-          width: MediaQuery.of(context).size.width / 5,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.black38,
-              blurRadius: 20.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                23.0, // Move to right 10  horizontally
-                -1.0, // Move to bottom 10 Vertically
+          width: MediaQuery.of(context).size.width / 3,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black38,
+                blurRadius: 20.0, // soften the shadow
+                spreadRadius: 1.0, //extend the shadow
+                offset: Offset(
+                  23.0, // Move to right 10  horizontally
+                  -1.0, // Move to bottom 10 Vertically
+                ),
               ),
-            ),
-          ]),
-          child: const Icon(
+            ],
+          ),
+          child: Icon(
             Icons.mark_chat_unread_rounded,
             color: Color.fromRGBO(15, 147, 158, 1),
             size: 35.0,
@@ -76,28 +82,10 @@ class _MessagingState extends State<Messaging> {
         ),
         Container(
           height: 60,
-          width: MediaQuery.of(context).size.width / 5,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.black38,
-              blurRadius: 20.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                24.0, // Move to right 10  horizontally
-                -1.0, // Move to bottom 10 Vertically
-              ),
-            ),
-          ]),
-          child: const Icon(
-            Icons.photo_camera_rounded,
-            color: Color.fromRGBO(216, 217, 218, 1),
-            size: 35.0,
-          ),
-        ),
-        Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width / 5,
-            decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+          width: MediaQuery.of(context).size.width / 3,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
               BoxShadow(
                 color: Colors.black38,
                 blurRadius: 20.0, // soften the shadow
@@ -107,37 +95,17 @@ class _MessagingState extends State<Messaging> {
                   -1.0, // Move to bottom 10 Vertically
                 ),
               ),
-            ]),
-            child: GestureDetector(
-              child: const Icon(
-                Icons.favorite_rounded,
-                color: Color.fromRGBO(216, 217, 218, 1),
-                size: 35.0,
-              ),
-              onTap: () {},
-            )),
-        Container(
-          height: 60,
-          width: MediaQuery.of(context).size.width / 5,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.black38,
-              blurRadius: 20.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                26.0, // Move to right 10  horizontally
-                -1.0, // Move to bottom 10 Vertically
-              ),
-            ),
-          ]),
+            ],
+          ),
           child: GestureDetector(
-              onTap: () => navigatorKey.currentState!
-                  .push(MaterialPageRoute(builder: (context) => ProfilePage())),
-              child: const Icon(
-                Icons.account_circle_rounded,
-                color: Color.fromRGBO(216, 217, 218, 1),
-                size: 35.0,
-              )),
+            onTap: () => navigatorKey.currentState!
+                .push(MaterialPageRoute(builder: (context) => ProfilePage())),
+            child: Icon(
+              Icons.account_circle_rounded,
+              color: Color.fromRGBO(216, 217, 218, 1),
+              size: 35.0,
+            ),
+          ),
         ),
       ],
     );

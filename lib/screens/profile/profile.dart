@@ -14,8 +14,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
-
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -38,9 +36,9 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Column(
         children: [
           header(),
-          SizedBox(height: 20),
+          SizedBox(height: 24),
           hr(),
-          SizedBox(height: 10),
+          SizedBox(height: 16),
           card(),
           // SizedBox(height: 24),
           // services(),
@@ -55,9 +53,11 @@ class _ProfilePageState extends State<ProfilePage> {
     return Row(
       children: <Widget>[
         Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width / 5,
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          height: 60,
+          width: MediaQuery.of(context).size.width / 3,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
               BoxShadow(
                 color: Colors.black38,
                 blurRadius: 20.0, // soften the shadow
@@ -67,31 +67,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   -1.0, // Move to bottom 10 Vertically
                 ),
               ),
-            ]),
-            child: GestureDetector(
-              onTap: () => navigatorKey.currentState!.pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                  (route) => false),
-              child: Icon(
-                Icons.home_rounded,
-                color: Color.fromRGBO(216, 217, 218, 1),
-                size: 35.0,
-              ),
-            )),
+            ],
+          ),
+          child: GestureDetector(
+            onTap: () => navigatorKey.currentState!.pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => HomePage()),
+                (route) => false),
+            child: Icon(
+              Icons.home_rounded,
+              color: Color.fromRGBO(216, 217, 218, 1),
+              size: 35.0,
+            ),
+          ),
+        ),
         Container(
           height: 60,
-          width: MediaQuery.of(context).size.width / 5,
-          decoration: BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.black38,
-              blurRadius: 20.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                23.0, // Move to right 10  horizontally
-                -1.0, // Move to bottom 10 Vertically
+          width: MediaQuery.of(context).size.width / 3,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black38,
+                blurRadius: 20.0, // soften the shadow
+                spreadRadius: 1.0, //extend the shadow
+                offset: Offset(
+                  23.0, // Move to right 10  horizontally
+                  -1.0, // Move to bottom 10 Vertically
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
           child: GestureDetector(
             onTap: () => navigatorKey.currentState!
                 .push(MaterialPageRoute(builder: (context) => Messaging())),
@@ -104,69 +109,27 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         Container(
           height: 60,
-          width: MediaQuery.of(context).size.width / 5,
-          decoration: BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.black38,
-              blurRadius: 20.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                24.0, // Move to right 10  horizontally
-                -1.0, // Move to bottom 10 Vertically
+          width: MediaQuery.of(context).size.width / 3,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black38,
+                blurRadius: 20.0, // soften the shadow
+                spreadRadius: 1.0, //extend the shadow
+                offset: Offset(
+                  26.0, // Move to right 10  horizontally
+                  -1.0, // Move to bottom 10 Vertically
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
           child: Icon(
-            Icons.photo_camera_rounded,
-            color: Color.fromRGBO(216, 217, 218, 1),
+            Icons.account_circle_rounded,
+            color: Color.fromRGBO(15, 147, 158, 1),
             size: 35.0,
           ),
         ),
-        Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width / 5,
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(
-                color: Colors.black38,
-                blurRadius: 20.0, // soften the shadow
-                spreadRadius: 1.0, //extend the shadow
-                offset: Offset(
-                  26.0, // Move to right 10  horizontally
-                  -1.0, // Move to bottom 10 Vertically
-                ),
-              ),
-            ]),
-            child: GestureDetector(
-              child: Icon(
-                Icons.favorite_rounded,
-                color: Color.fromRGBO(216, 217, 218, 1),
-                size: 35.0,
-              ),
-              onTap: () {},
-            )),
-        Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width / 5,
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(
-                color: Colors.black38,
-                blurRadius: 20.0, // soften the shadow
-                spreadRadius: 1.0, //extend the shadow
-                offset: Offset(
-                  26.0, // Move to right 10  horizontally
-                  -1.0, // Move to bottom 10 Vertically
-                ),
-              ),
-            ]),
-            child: GestureDetector(
-              onTap: () => navigatorKey.currentState!
-                  .push(MaterialPageRoute(builder: (context) => ProfilePage())),
-              child: Icon(
-                Icons.account_circle_rounded,
-                color: Color.fromRGBO(15, 147, 158, 1),
-                size: 35.0,
-              ),
-            )),
       ],
     );
   }
@@ -183,47 +146,39 @@ class _ProfilePageState extends State<ProfilePage> {
             color: Colors.teal,
           ),
         ),
+        SizedBox(height: 24),
         Container(
-          margin: EdgeInsets.only(top: 50),
-          height: 180,
-          width: 180,
+          height: 150,
+          width: 150,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.teal,
-              image: DecorationImage(
-                image: NetworkImage(getUser.photoURL.toString()),
-              )),
-          // child: ClipRRect(
-          //   borderRadius: BorderRadius.circular(30),
-          //   child: Image.network(
-          //     'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80',
-          //     fit: BoxFit.cover,
-          //   ),
-          // )),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                getUser.name,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                  color: Color.fromRGBO(55, 67, 103, 1),
-                ),
-              ),
-              Text(
-                getUser.email,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w100,
-                  color: Color.fromARGB(82, 90, 90, 90),
-                ),
-              ),
-            ],
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.teal,
+            image: DecorationImage(
+              image: NetworkImage(getUser.photoURL.toString()),
+            ),
           ),
+        ),
+        SizedBox(height: 16),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              getUser.name,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: Color.fromRGBO(55, 67, 103, 1),
+              ),
+            ),
+            Text(
+              getUser.email,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w100,
+                color: Color.fromARGB(82, 90, 90, 90),
+              ),
+            ),
+          ],
         ),
         SizedBox(width: 50),
 
