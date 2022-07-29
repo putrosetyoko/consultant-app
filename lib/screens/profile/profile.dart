@@ -154,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
             borderRadius: BorderRadius.circular(100),
             color: Colors.teal,
             image: DecorationImage(
-              image: NetworkImage(getUser.photoURL.toString()),
+              image: NetworkImage(user.photoURL.toString()),
             ),
           ),
         ),
@@ -163,7 +163,7 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              getUser.name,
+              user.name,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
@@ -171,7 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Text(
-              getUser.email,
+              user.email,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w100,

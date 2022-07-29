@@ -98,8 +98,12 @@ class _MessagingState extends State<Messaging> {
             ],
           ),
           child: GestureDetector(
-            onTap: () => navigatorKey.currentState!
-                .push(MaterialPageRoute(builder: (context) => ProfilePage())),
+            onTap: () => navigatorKey.currentState!.push(
+              MaterialPageRoute(
+                settings: RouteSettings(name: "/ProfilePage"),
+                builder: (context) => ProfilePage(),
+              ),
+            ),
             child: Icon(
               Icons.account_circle_rounded,
               color: Color.fromRGBO(216, 217, 218, 1),

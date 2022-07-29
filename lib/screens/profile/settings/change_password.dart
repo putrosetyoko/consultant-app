@@ -1,3 +1,4 @@
+// ignore_for_file: preferructors, prefer_literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:consultant_app/main.dart';
 import 'package:flutter/material.dart';
 
