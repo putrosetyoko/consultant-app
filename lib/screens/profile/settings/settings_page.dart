@@ -1,8 +1,8 @@
+// ignore_for_file: preferructors, prefer_literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
+import 'package:consultant_app/main.dart';
 import 'package:consultant_app/screens/profile/settings/change_password.dart';
 import 'package:consultant_app/screens/profile/settings/edit_profile.dart';
 import 'package:flutter/material.dart';
-
-import '../../../main.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Column(
         children: [
           header(),
-          SizedBox(height: 20),
+          SizedBox(height: 24),
           listSetting(),
         ],
       ),
@@ -120,9 +120,6 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
         ),
-
-        // SizedBox(height: ),
-
         GestureDetector(
           onTap: () => navigatorKey.currentState!.push(
               MaterialPageRoute(builder: (context) => ChangePasswordPage())),

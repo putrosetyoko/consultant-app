@@ -143,8 +143,12 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           child: GestureDetector(
-            onTap: () => navigatorKey.currentState!
-                .push(MaterialPageRoute(builder: (context) => ProfilePage())),
+            onTap: () => navigatorKey.currentState!.push(
+              MaterialPageRoute(
+                settings: RouteSettings(name: "/ProfilePage"),
+                builder: (context) => ProfilePage(),
+              ),
+            ),
             child: Icon(
               Icons.account_circle_rounded,
               color: Color.fromRGBO(216, 217, 218, 1),
@@ -166,7 +170,7 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(25),
             color: Colors.teal,
             image: DecorationImage(
-              image: NetworkImage(getUser.photoURL.toString()),
+              image: NetworkImage(user.photoURL.toString()),
               fit: BoxFit.fill,
             ),
           ),
@@ -180,7 +184,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   Text(
-                    getUser.name,
+                    user.name,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w800,
@@ -492,13 +496,12 @@ class _HomePageState extends State<HomePage> {
             ),
             Spacer(),
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        settings: RouteSettings(name: "/DoctorConfig"),
-                        builder: (context) => DoctorConfig()));
-              },
+              onTap: () => navigatorKey.currentState!.push(
+                MaterialPageRoute(
+                  settings: RouteSettings(name: "/DoctorConfig"),
+                  builder: (context) => DoctorConfig(),
+                ),
+              ),
               child: Text(
                 "See all",
                 style: TextStyle(
